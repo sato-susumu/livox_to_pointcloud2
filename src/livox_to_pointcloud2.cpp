@@ -11,9 +11,9 @@ class LivoxToPointCloud2 : public rclcpp::Node
 public:
     LivoxToPointCloud2() : Node("livox_converter")
     {
-        publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("converted_pointcloud2", 10);
+        publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("converted_pointcloud2", rclcpp::SensorDataQoS());
         subscription_ = this->create_subscription<livox_ros_driver2::msg::CustomMsg>(
-            "livox_pointcloud", 10, std::bind(&LivoxToPointCloud2::callback, this, std::placeholders::_1));
+            "livox_pointcloud", rclcpp::SensorDataQoS(), std::bind(&LivoxToPointCloud2::callback, this, std::placeholders::_1));
     }
 
 private:
